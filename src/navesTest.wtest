@@ -2,27 +2,40 @@ import naves.*
 
 describe "Nave de carga" {
 
-//	const naveVacia = 
-//	const naveLlena = 
+const naveVacia = new NaveCarga(masaDeCarga = 0, velocidad= 1000)
+const naveLlena = new NaveCarga(masaDeCarga= 100001, velocidad= 1000)
 
 	test "sobrecargada" {
-	
+		assert.that(naveLlena.sobrecargada())
 	}
 
 	test "no sobrecargada" {
-		
+		assert.notThat(naveVacia.sobrecargada())
 	}
 
 	test "excedida de velocidad" {
-		
+		naveVacia.velocidad(200000)
+		assert.equals(200000, naveVacia.velocidad())
+		assert.that(naveVacia.excesoVelocidad())
 	}
 
 	test "no excedida de velocidad" {
-		
+		assert.equals(1000, naveVacia.velocidad())
+		assert.notThat(naveVacia.excesoVelocidad())
 	}
 
 	test "recibir amenaza" {
-		
+		naveLlena.amenaza(true)
+		assert.equals(true, naveLlena.amenaza())
+		naveLlena.esAmenazada()
+		assert.equals(0, naveLlena.masaDeCarga())
+		assert.notThat(naveLlena.sobrecargada())
+	}
+	
+	test "velocidad propulsada"{
+		naveVacia.velocidad(0)
+		naveVacia.propulsar()
+		assert.equals(20000, naveVacia.velocidad())
 	}
 
 }
@@ -79,4 +92,3 @@ describe "Nave de combate" {
 		
 	}
 }
-
